@@ -1,21 +1,17 @@
 import { Body, Controller, Get, Param, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { AppService } from './app.service';
+import { DogsService } from './dogs/dogs.service';
 
-@Controller('cats')
+@Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly dogsService: DogsService,
+  ) {}
 
-  // localhost:8000/cats/hello/id/name -> Hello!
   @Get('hello/:id/:name')
-  getHello(
-    @Req() req: Request,
-    @Body() body,
-    @Param() param: { id: string; name: string },
-  ): string {
-    // console.log(req);
-    // console.log(param);
-    // return 'Hello!';
+  getHello() {
     return this.appService.getHello();
   }
 }
